@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  
   :root {
     --paper: #F5F0E6;
     --ink: #1A1F1A;
@@ -19,7 +19,7 @@
     --line: #C9BFA9;
     --cream: #FAF6EC;
   }
-
+  
   body {
     background: var(--paper);
     color: var(--ink);
@@ -27,13 +27,13 @@
     line-height: 1.7;
     overflow-x: hidden;
   }
-
+  
   /* ==================== COVER ==================== */
   .cover {
     min-height: 100vh;
     position: relative;
     padding: 60px 8% 80px;
-    background:
+    background: 
       linear-gradient(rgba(26,31,26,0.35), rgba(26,31,26,0.65)),
       url('https://images.unsplash.com/photo-1580500550469-4e273306fb1a?w=1600') center/cover;
     display: flex;
@@ -41,7 +41,7 @@
     justify-content: space-between;
     color: var(--cream);
   }
-
+  
   .cover-header {
     display: flex;
     justify-content: space-between;
@@ -53,18 +53,18 @@
     border-bottom: 1px solid rgba(250,246,236,0.3);
     padding-bottom: 20px;
   }
-
+  
   .cover-header .brand {
     font-family: 'Cormorant Garamond', serif;
     font-size: 14px;
     font-style: italic;
     letter-spacing: 2px;
   }
-
+  
   .cover-center {
     margin: auto 0;
   }
-
+  
   .cover-eyebrow {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -74,7 +74,7 @@
     opacity: 0.85;
     margin-bottom: 20px;
   }
-
+  
   .cover-title {
     font-family: 'Noto Serif TC', serif;
     font-weight: 900;
@@ -83,7 +83,7 @@
     letter-spacing: 8px;
     margin-bottom: 30px;
   }
-
+  
   .cover-title span {
     display: block;
     font-size: clamp(28px, 4vw, 52px);
@@ -94,7 +94,1158 @@
     font-style: italic;
     opacity: 0.9;
   }
-
+  
   .cover-tagline {
     font-family: 'Noto Serif TC', serif;
     font-size: 18px;
+    font-weight: 300;
+    max-width: 500px;
+    line-height: 1.9;
+    letter-spacing: 2px;
+    margin-top: 40px;
+    padding-left: 30px;
+    border-left: 2px solid var(--gold);
+  }
+  
+  .cover-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(250,246,236,0.3);
+    padding-top: 20px;
+  }
+  
+  .issue-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 60px;
+    font-style: italic;
+    line-height: 1;
+    color: var(--gold);
+  }
+  
+  /* ==================== SECTIONS ==================== */
+  section {
+    padding: 100px 8%;
+    position: relative;
+  }
+  
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .section-label::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--clay);
+  }
+  
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.1;
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+    color: var(--ink);
+  }
+  
+  .section-title em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--moss);
+  }
+  
+  /* ==================== INTRO ==================== */
+  .intro {
+    background: var(--cream);
+  }
+  
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  
+  .intro-text p {
+    font-size: 17px;
+    line-height: 2;
+    margin-bottom: 25px;
+    color: var(--ink);
+    font-weight: 300;
+  }
+  
+  .intro-text p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 84px;
+    font-weight: 700;
+    float: left;
+    line-height: 0.9;
+    padding: 4px 12px 0 0;
+    color: var(--clay);
+  }
+  
+  .intro-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+  
+  .stat {
+    text-align: left;
+  }
+  
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 500;
+    color: var(--moss);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  
+  .stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  
+  .intro-visual {
+    aspect-ratio: 3/4;
+    background: url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800') center/cover;
+    position: relative;
+    box-shadow: 20px 20px 0 var(--moss);
+  }
+  
+  .intro-visual::after {
+    content: '花東縱谷';
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: rgba(26,31,26,0.5);
+    padding: 12px 16px;
+    backdrop-filter: blur(4px);
+  }
+  
+  /* ==================== TIMELINE ==================== */
+  .timeline-section {
+    background: var(--paper);
+    padding: 100px 8%;
+  }
+  
+  .timeline-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 80px;
+  }
+  
+  .timeline-header p {
+    font-size: 16px;
+    line-height: 1.9;
+    font-weight: 300;
+    color: var(--stone);
+  }
+  
+  .timeline {
+    position: relative;
+  }
+  
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 90px;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background: var(--line);
+  }
+  
+  .stop {
+    display: grid;
+    grid-template-columns: 90px 60px 1fr;
+    gap: 30px;
+    align-items: start;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  
+  .stop:last-child { border-bottom: none; }
+  
+  .stop-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--moss-dark);
+    line-height: 1;
+    text-align: right;
+    padding-top: 8px;
+  }
+  
+  .stop-marker {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 12px;
+    z-index: 1;
+  }
+  
+  .stop-dot {
+    width: 14px;
+    height: 14px;
+    background: var(--paper);
+    border: 2px solid var(--clay);
+    border-radius: 50%;
+    position: relative;
+  }
+  
+  .stop-dot::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--clay);
+    border-radius: 50%;
+  }
+  
+  .stop.meal .stop-dot {
+    border-color: var(--gold);
+    width: 20px;
+    height: 20px;
+  }
+  
+  .stop.meal .stop-dot::after {
+    background: var(--gold);
+  }
+  
+  .stop-content h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 2px;
+  }
+  
+  .stop-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--stone);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  
+  .stop-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink);
+    font-weight: 300;
+    max-width: 600px;
+  }
+  
+  .stop-tag {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid var(--stone);
+    color: var(--stone);
+    margin-top: 12px;
+    margin-right: 8px;
+  }
+  
+  .stop.meal .stop-tag.featured {
+    background: var(--gold);
+    color: var(--cream);
+    border-color: var(--gold);
+  }
+  
+  /* ==================== FEATURE CARDS ==================== */
+  .features {
+    background: var(--cream);
+    padding: 100px 0;
+  }
+  
+  .features-inner { padding: 0 8%; }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px 40px;
+    margin-top: 60px;
+  }
+  
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .feature-image {
+    aspect-ratio: 4/3;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .feature-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(26,31,26,0.4));
+  }
+  
+  .feature-number {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--cream);
+    font-size: 40px;
+    line-height: 1;
+    z-index: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  
+  .feature-rating {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--cream);
+    padding: 6px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--moss-dark);
+    letter-spacing: 1px;
+    z-index: 1;
+  }
+  
+  .feature-body {
+    padding: 24px 0 0;
+  }
+  
+  .feature-time {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 8px;
+  }
+  
+  .feature-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  
+  .feature-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--stone);
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  
+  .feature-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  
+  .feature-meta {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+  
+  .feature-meta .meta-label {
+    color: var(--stone);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+  }
+  
+  .feature-meta .meta-value {
+    color: var(--ink);
+    font-weight: 500;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+  }
+  
+  /* ==================== RESTAURANT SPOTLIGHT ==================== */
+  .spotlight {
+    background: var(--moss-dark);
+    color: var(--cream);
+    padding: 120px 8%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .spotlight::before {
+    content: '風味餐';
+    position: absolute;
+    top: 40px;
+    right: -40px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 300px;
+    color: rgba(250,246,236,0.03);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 20px;
+  }
+  
+  .spotlight-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .spotlight-image {
+    aspect-ratio: 1;
+    background: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800') center/cover;
+    box-shadow: -20px 20px 0 var(--gold);
+  }
+  
+  .spotlight-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  
+  .spotlight-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+  }
+  
+  .spotlight-desc {
+    font-size: 17px;
+    line-height: 2;
+    font-weight: 300;
+    margin-bottom: 40px;
+    opacity: 0.9;
+  }
+  
+  .spotlight-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 20px;
+    padding: 30px 0;
+    border-top: 1px solid rgba(250,246,236,0.2);
+    border-bottom: 1px solid rgba(250,246,236,0.2);
+    margin-bottom: 30px;
+  }
+  
+  .detail-item .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  
+  .detail-item .value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+  
+  .price-highlight {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 20px 0;
+  }
+  
+  .price-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1;
+  }
+  
+  .price-currency {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: var(--gold);
+    font-style: italic;
+  }
+  
+  .price-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-left: 8px;
+  }
+  
+  /* ==================== BUDGET ==================== */
+  .budget {
+    background: var(--paper);
+    padding: 100px 8%;
+  }
+  
+  .budget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 60px;
+  }
+  
+  .budget-list {
+    padding: 40px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+  }
+  
+  .budget-list h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--clay);
+  }
+  
+  .budget-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px dotted var(--line);
+    font-size: 15px;
+  }
+  
+  .budget-item:last-of-type { border-bottom: none; }
+  
+  .budget-item .price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--moss-dark);
+  }
+  
+  .budget-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid var(--moss-dark);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  .budget-total .total-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    color: var(--clay);
+  }
+  
+  .tips-box {
+    background: var(--moss-dark);
+    color: var(--cream);
+    padding: 40px;
+  }
+  
+  .tips-box h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 28px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    color: var(--gold);
+  }
+  
+  .tips-box ul {
+    list-style: none;
+  }
+  
+  .tips-box li {
+    padding: 12px 0 12px 30px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.7;
+    border-bottom: 1px solid rgba(250,246,236,0.1);
+    font-weight: 300;
+  }
+  
+  .tips-box li:last-child { border-bottom: none; }
+  
+  .tips-box li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 22px;
+    width: 16px;
+    height: 1px;
+    background: var(--gold);
+  }
+  
+  /* ==================== CHECKLIST ==================== */
+  .checklist {
+    background: var(--cream);
+    padding: 100px 8%;
+  }
+  
+  .check-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+  }
+  
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--paper);
+    border-left: 3px solid var(--clay);
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--moss-dark);
+    flex-shrink: 0;
+  }
+  
+  /* ==================== FOOTER ==================== */
+  footer {
+    background: var(--moss-dark);
+    color: var(--cream);
+    padding: 60px 8% 40px;
+    text-align: center;
+  }
+  
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 40px;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  
+  .footer-tagline {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    opacity: 0.8;
+    margin-bottom: 30px;
+  }
+  
+  .footer-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    padding-top: 30px;
+    border-top: 1px solid rgba(250,246,236,0.2);
+  }
+  
+  /* ==================== RESPONSIVE ==================== */
+  @media (max-width: 768px) {
+    .cover { padding: 40px 6% 60px; }
+    .cover-header, .cover-footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .cover-tagline { padding-left: 20px; font-size: 16px; }
+    
+    section { padding: 60px 6%; }
+    
+    .intro-grid,
+    .timeline-header,
+    .spotlight-inner,
+    .features-grid,
+    .budget-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    
+    .check-grid { grid-template-columns: 1fr; }
+    
+    .timeline::before { left: 60px; }
+    .stop { grid-template-columns: 60px 40px 1fr; gap: 15px; }
+    .stop-time { font-size: 22px; }
+    .stop-content h3 { font-size: 20px; }
+    
+    .section-title { font-size: 36px; letter-spacing: 2px; }
+    .spotlight-title { font-size: 36px; }
+    .spotlight::before { display: none; }
+    
+    .price-number { font-size: 56px; }
+    
+    .intro-stats { grid-template-columns: 1fr 1fr; }
+    .stat-number { font-size: 40px; }
+    
+    .spotlight-details { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER ==================== -->
+<div class="cover">
+  <div class="cover-header">
+    <div class="brand">Hualien Valley Journal</div>
+    <div>Issue No. 01 · Summer 2026</div>
+  </div>
+  
+  <div class="cover-center">
+    <div class="cover-eyebrow">A One-Day Journey</div>
+    <h1 class="cover-title">
+      花東縱谷
+      <span>One Day, Endless Views</span>
+    </h1>
+    <p class="cover-tagline">
+      沿著中央山脈與海岸山脈之間，<br>
+      一條穿越時光與部落的漫遊路線。<br>
+      八小時，七個停靠站，一份紅糯米風味餐。
+    </p>
+  </div>
+  
+  <div class="cover-footer">
+    <div>08:00 出發．17:45 歸來</div>
+    <div class="issue-number">Vol.I</div>
+  </div>
+</div>
+
+<!-- ==================== INTRO ==================== -->
+<section class="intro">
+  <div class="intro-grid">
+    <div class="intro-text">
+      <div class="section-label">Prologue · 序</div>
+      <h2 class="section-title">縱谷之間，<br><em>Life in the Valley</em></h2>
+      <p>花東縱谷夾在中央山脈與海岸山脈之間，是台灣東部最舒緩的一段風景。這裡有阿美族的部落、日治時期留下的林業聚落、糖廠的懷舊記憶，以及讓時間慢下來的湖光山色。</p>
+      <p>這份行程不趕路。上午走進山邊的日式木造建築，中午在部落餐桌品嚐紅糯米風味料理，下午被夢幻湖的藍與森林咖啡館的光線寵愛，最後在太平洋的浪聲中收尾。</p>
+      
+      <div class="intro-stats">
+        <div class="stat">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Hours · 小時</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">7</div>
+          <div class="stat-label">Stops · 停靠</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">150</div>
+          <div class="stat-label">NTD · 風味餐</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Day · 一日</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="intro-visual" style="background-image: url('https://images.unsplash.com/photo-1528181304800-259b08848526?w=800')"></div>
+  </div>
+</section>
+
+<!-- ==================== TIMELINE ==================== -->
+<section class="timeline-section">
+  <div class="timeline-header">
+    <div>
+      <div class="section-label">Itinerary · 行程</div>
+      <h2 class="section-title">一日<br><em>The Day</em></h2>
+    </div>
+    <p>從花蓮港出發，往南深入縱谷，穿過林業聚落、部落餐桌、糖廠時光、夢幻湖畔、森林咖啡館，最後回到太平洋岸邊。每一站都是一次呼吸的節奏。</p>
+  </div>
+  
+  <div class="timeline">
+    <div class="stop">
+      <div class="stop-time">08:00</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>花蓮港</h3>
+        <div class="stop-en">Departure · Hualien Port</div>
+        <div class="stop-desc">集合出發。備妥防蚊液、太陽眼鏡與充飽電的相機。</div>
+      </div>
+    </div>
+    
+    <div class="stop">
+      <div class="stop-time">08:15</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>鯉魚潭</h3>
+        <div class="stop-en">Liyu Lake · 環湖靜心</div>
+        <div class="stop-desc">東台灣最大的湖，四周被山環抱。清晨的湖面平靜如鏡，適合快速環湖拍幾張標記行程開始的照片。</div>
+        <span class="stop-tag">FREE</span>
+        <span class="stop-tag">30 MIN</span>
+      </div>
+    </div>
+    
+    <div class="stop">
+      <div class="stop-time">09:30</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>林田山</h3>
+        <div class="stop-en">Lintianshan · 時光聚落</div>
+        <div class="stop-desc">日治時期留下的林業聚落，被稱為「花蓮的九份」，卻沒有九份的喧囂。沿著鐵軌走進木造老屋群，像走進一部黑白電影。</div>
+        <span class="stop-tag">週一休館</span>
+        <span class="stop-tag">1 HR</span>
+      </div>
+    </div>
+    
+    <div class="stop meal">
+      <div class="stop-time">11:00</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>太巴塱紅糯米生活館</h3>
+        <div class="stop-en">Taibalong · 部落餐桌</div>
+        <div class="stop-desc">阿美族部落的家常味。烤雞、烤魚、野菜沙拉、紅糯米飯 —— 一份 150 元的原住民風味餐，滿桌熱氣騰騰。務必提前一天預約。</div>
+        <span class="stop-tag featured">FEATURED · 風味餐</span>
+        <span class="stop-tag">150 / 人</span>
+        <span class="stop-tag">預約制</span>
+      </div>
+    </div>
+    
+    <div class="stop">
+      <div class="stop-time">12:45</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>光復糖廠</h3>
+        <div class="stop-en">Guangfu Sugar Factory · 冰淇淋時光</div>
+        <div class="stop-desc">日治留下的糖業遺產，如今以冰淇淋聞名。紅豆牛奶是老客人的定番，花生口味也不能錯過。錦鯉池畔喝一杯咖啡，慢慢消化。</div>
+        <span class="stop-tag">1 HR</span>
+      </div>
+    </div>
+    
+    <div class="stop">
+      <div class="stop-time">14:00</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>雲山水</h3>
+        <div class="stop-en">Yunshanshui · 夢幻湖畔</div>
+        <div class="stop-desc">湖水藍得像 photoshop 的錯覺，落羽松林在湖邊延展。門票 120 元含一杯飲料，帶著飲料在湖邊散步，時間會突然變慢。</div>
+        <span class="stop-tag">120 NTD</span>
+        <span class="stop-tag">45 MIN</span>
+      </div>
+    </div>
+    
+    <div class="stop">
+      <div class="stop-time">15:00</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>理想星巴克</h3>
+        <div class="stop-en">Promiseland Starbucks · 森林咖啡屋</div>
+        <div class="stop-desc">童話般的森林小屋，全台最上鏡的星巴克之一。一杯拿鐵、一個下午光線最好的時刻，做為縱谷之旅的甜點。</div>
+        <span class="stop-tag">45 MIN</span>
+      </div>
+    </div>
+    
+    <div class="stop">
+      <div class="stop-time">16:00</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>太平洋公園</h3>
+        <div class="stop-en">Pacific Park · 黃昏收尾</div>
+        <div class="stop-desc">回到花蓮市區的海岸線。太平洋的浪聲、傍晚的橘色光、免費開放的散步道 —— 一天最柔軟的結尾。</div>
+        <span class="stop-tag">FREE</span>
+        <span class="stop-tag">1 HR</span>
+      </div>
+    </div>
+    
+    <div class="stop">
+      <div class="stop-time">17:45</div>
+      <div class="stop-marker"><div class="stop-dot"></div></div>
+      <div class="stop-content">
+        <h3>花蓮港</h3>
+        <div class="stop-en">Return · 歸來</div>
+        <div class="stop-desc">八小時，剛好。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="features">
+  <div class="features-inner">
+    <div class="section-label">Highlights · 景點</div>
+    <h2 class="section-title">七個<em>停靠</em></h2>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Liyu_Lake_20140102.jpg/1280px-Liyu_Lake_20140102.jpg')">
+          <div class="feature-number">01</div>
+          <div class="feature-rating">★ 4.4</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-time">08:15 — 08:45 · 30 分鐘</div>
+          <h3 class="feature-title">鯉魚潭</h3>
+          <div class="feature-subtitle">Liyu Lake</div>
+          <p class="feature-desc">東台灣最大湖泊，環湖車道 4 公里。清晨光線下的湖面倒映著中央山脈，是一天最好的開場白。</p>
+          <div class="feature-meta">
+            <div><div class="meta-label">Location</div><div class="meta-value">壽豐鄉</div></div>
+            <div><div class="meta-label">Cost</div><div class="meta-value">免費</div></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Lintianshan_Forestry_Culture_Park_20191014_133027.jpg/1280px-Lintianshan_Forestry_Culture_Park_20191014_133027.jpg')">
+          <div class="feature-number">02</div>
+          <div class="feature-rating">★ 4.4</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-time">09:30 — 10:30 · 1 小時</div>
+          <h3 class="feature-title">林田山</h3>
+          <div class="feature-subtitle">Lintianshan Forestry Village</div>
+          <p class="feature-desc">日治時期的伐木聚落，木造宿舍、鐵軌、中山堂完整保留。像走進 1950 年代的時光膠囊。週一休館。</p>
+          <div class="feature-meta">
+            <div><div class="meta-label">Location</div><div class="meta-value">鳳林鎮</div></div>
+            <div><div class="meta-label">Cost</div><div class="meta-value">免費</div></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Hualien_Sugar_Factory_2019.jpg/1280px-Hualien_Sugar_Factory_2019.jpg')">
+          <div class="feature-number">03</div>
+          <div class="feature-rating">★ 4.1</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-time">12:45 — 13:45 · 1 小時</div>
+          <h3 class="feature-title">光復糖廠</h3>
+          <div class="feature-subtitle">Guangfu Sugar Factory</div>
+          <p class="feature-desc">冰淇淋的朝聖地。紅豆、花生、杜蕉、芋頭 —— 每一支都是童年的味道。錦鯉池、日式老屋，午後散步剛剛好。</p>
+          <div class="feature-meta">
+            <div><div class="meta-label">Location</div><div class="meta-value">光復鄉</div></div>
+            <div><div class="meta-label">Ice Cream</div><div class="meta-value">50-80 元</div></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/%E9%9B%B2%E5%B1%B1%E6%B0%B4%E5%A4%A2%E5%B9%BB%E6%B9%96.jpg/1280px-%E9%9B%B2%E5%B1%B1%E6%B0%B4%E5%A4%A2%E5%B9%BB%E6%B9%96.jpg')">
+          <div class="feature-number">04</div>
+          <div class="feature-rating">★ 4.1</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-time">14:00 — 14:45 · 45 分鐘</div>
+          <h3 class="feature-title">雲山水</h3>
+          <div class="feature-subtitle">Yunshanshui Dream Lake</div>
+          <p class="feature-desc">被落羽松環繞的私人花園，湖水呈現不真實的湖水藍。門票 120 元含飲料，可以租電動車環園。</p>
+          <div class="feature-meta">
+            <div><div class="meta-label">Location</div><div class="meta-value">壽豐鄉</div></div>
+            <div><div class="meta-label">Ticket</div><div class="meta-value">120 元</div></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Starbucks_Coffee_Hualien_Promiseland_Store_20220117a.jpg/1280px-Starbucks_Coffee_Hualien_Promiseland_Store_20220117a.jpg')">
+          <div class="feature-number">05</div>
+          <div class="feature-rating">★ 4.5</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-time">15:00 — 15:45 · 45 分鐘</div>
+          <h3 class="feature-title">理想星巴克</h3>
+          <div class="feature-subtitle">Promiseland Starbucks</div>
+          <p class="feature-desc">貨櫃屋改造的森林咖啡館，被稱為全台最夢幻的星巴克。純白外觀襯著綠色森林，怎麼拍都好看。</p>
+          <div class="feature-meta">
+            <div><div class="meta-label">Location</div><div class="meta-value">壽豐鄉</div></div>
+            <div><div class="meta-label">Drink</div><div class="meta-value">100-150 元</div></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/%E5%8D%97%E6%BF%B1%E5%85%AC%E5%9C%92.jpg/1280px-%E5%8D%97%E6%BF%B1%E5%85%AC%E5%9C%92.jpg')">
+          <div class="feature-number">06</div>
+          <div class="feature-rating">★ 4.5</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-time">16:00 — 17:00 · 1 小時</div>
+          <h3 class="feature-title">太平洋公園</h3>
+          <div class="feature-subtitle">Pacific Park</div>
+          <p class="feature-desc">花蓮市海岸線上的長條公園。傍晚的橘色光、太平洋的浪聲、免費 24 小時開放。近大東門夜市。</p>
+          <div class="feature-meta">
+            <div><div class="meta-label">Location</div><div class="meta-value">花蓮市</div></div>
+            <div><div class="meta-label">Cost</div><div class="meta-value">免費</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RESTAURANT SPOTLIGHT ==================== -->
+<section class="spotlight">
+  <div class="spotlight-inner">
+    <div class="spotlight-image" style="background-image: url('https://images.unsplash.com/photo-1567337710282-00832b415979?w=800')"></div>
+    
+    <div>
+      <div class="spotlight-eyebrow">Featured Meal · 主打</div>
+      <h2 class="spotlight-title">太巴塱<br>紅糯米生活館</h2>
+      <p class="spotlight-desc">阿美族部落的家常味。沒有菜單，只有依季節上桌的家常菜 —— 烤雞、烤魚、野菜沙拉、酒釀嫩雞、紅糯米飯。滿桌熱氣騰騰，卻只要 150 元。</p>
+      
+      <div class="spotlight-details">
+        <div class="detail-item">
+          <div class="label">Address · 地址</div>
+          <div class="value">光復鄉大進村<br>糖廠街 12 號 1 樓</div>
+        </div>
+        <div class="detail-item">
+          <div class="label">Phone · 訂位</div>
+          <div class="value">03-870-3419</div>
+        </div>
+        <div class="detail-item">
+          <div class="label">Rating · 評分</div>
+          <div class="value">★ 4.5 / 5.0<br><span style="opacity:0.6;font-size:12px">122 則評論</span></div>
+        </div>
+        <div class="detail-item">
+          <div class="label">Hours · 營業</div>
+          <div class="value">週三至週日<br><span style="opacity:0.6;font-size:12px">週一、週二公休</span></div>
+        </div>
+      </div>
+      
+      <div class="price-highlight">
+        <span class="price-currency">NT$</span>
+        <span class="price-number">150</span>
+        <span class="price-label">/ 每人 · 訂製風味餐</span>
+      </div>
+      
+      <p style="font-size:13px; opacity:0.7; margin-top:20px; font-style:italic; font-family:'Cormorant Garamond',serif;">
+        ✱ 務必提前一至兩天電話預約，餐廳依訂位人數準備食材。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BUDGET & TIPS ==================== -->
+<section class="budget">
+  <div class="section-label">Practical · 實用</div>
+  <h2 class="section-title">預算 &amp; <em>Tips</em></h2>
+  
+  <div class="budget-grid">
+    <div class="budget-list">
+      <h4>每人預算 · Per Person</h4>
+      <div class="budget-item">
+        <span>太巴塱風味餐</span>
+        <span class="price">150</span>
+      </div>
+      <div class="budget-item">
+        <span>雲山水門票（含飲料）</span>
+        <span class="price">120</span>
+      </div>
+      <div class="budget-item">
+        <span>理想星巴克飲品</span>
+        <span class="price">130</span>
+      </div>
+      <div class="budget-item">
+        <span>光復糖廠冰淇淋</span>
+        <span class="price">70</span>
+      </div>
+      <div class="budget-item">
+        <span>其他景點門票</span>
+        <span class="price">0</span>
+      </div>
+      <div class="budget-total">
+        <span>合計 Total</span>
+        <span class="total-price">NT$ 470</span>
+      </div>
+    </div>
+    
+    <div class="tips-box">
+      <h4>Insider Tips</h4>
+      <ul>
+        <li>太巴塱紅糯米務必提前一天預約，餐廳依人數準備食材</li>
+        <li>林田山週一休館，若行程落在週一請調整為其他景點</li>
+        <li>雲山水蚊蟲多，短褲短袖記得帶防蚊液</li>
+        <li>理想星巴克假日停車位緊張，建議提早 15 分鐘抵達</li>
+        <li>光復糖廠冰淇淋收現金，備零錢比較方便</li>
+        <li>太平洋公園晚上有大東門夜市可延伸行程</li>
+        <li>八小時行程含車程約 2.5 小時，自駕最方便</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CHECKLIST ==================== -->
+<section class="checklist">
+  <div class="section-label">Before You Go · 出發前</div>
+  <h2 class="section-title">Checklist</h2>
+  
+  <div class="check-grid">
+    <div class="check-item"><div class="check-box"></div>致電太巴塱預約（03-870-3419）</div>
+    <div class="check-item"><div class="check-box"></div>確認出發日是否週一（林田山休館）</div>
+    <div class="check-item"><div class="check-box"></div>防曬霜、帽子、太陽眼鏡</div>
+    <div class="check-item"><div class="check-box"></div>防蚊液（雲山水蚊蟲多）</div>
+    <div class="check-item"><div class="check-box"></div>相機或手機（電量充足）</div>
+    <div class="check-item"><div class="check-box"></div>備零錢與現金</div>
+    <div class="check-item"><div class="check-box"></div>舒適的步行鞋</div>
+    <div class="check-item"><div class="check-box"></div>飲用水</div>
+    <div class="check-item"><div class="check-box"></div>導航設定妥當</div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-logo">Hualien Valley</div>
+  <div class="footer-tagline">縱谷之間，時間變得剛剛好</div>
+  <div class="footer-meta">Issue No. 01 · One-Day Journey · July 2026</div>
+</footer>
+
+</body>
+</html>
