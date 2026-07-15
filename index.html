@@ -8,6 +8,18 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
+  /* Fallback gradient backgrounds — used when image files are missing.
+     The image url() sits on top; if the file loads, it covers the gradient. */
+  .cover { background-color: #2F3D26; background-image: linear-gradient(180deg, #4A5D3A 0%, #2F3D26 60%, #1A1F1A 100%); }
+  .intro-visual { background-color: #4A5D3A; background-image: linear-gradient(180deg, #A5C4D4 0%, #6B8AA0 40%, #4A5D3A 100%); }
+  .spotlight-image { background-color: #C4633F; background-image: linear-gradient(135deg, #C4633F 0%, #A04E2E 50%, #7A3820 100%); }
+  .feature-card:nth-child(1) .feature-image { background-color: #6B8AA0; background-image: linear-gradient(180deg, #B8CDD9 0%, #6B8AA0 60%, #4A6478 100%); }
+  .feature-card:nth-child(2) .feature-image { background-color: #B8935A; background-image: linear-gradient(180deg, #D4B584 0%, #B8935A 100%); }
+  .feature-card:nth-child(3) .feature-image { background-color: #D4B584; background-image: linear-gradient(180deg, #F5E6D4 0%, #D4B584 100%); }
+  .feature-card:nth-child(4) .feature-image { background-color: #6B8AA0; background-image: linear-gradient(180deg, #C5D8E0 0%, #5FAAC4 100%); }
+  .feature-card:nth-child(5) .feature-image { background-color: #8FB8A5; background-image: linear-gradient(180deg, #B5D4C8 0%, #8FB8A5 100%); }
+  .feature-card:nth-child(6) .feature-image { background-color: #C4633F; background-image: linear-gradient(180deg, #F5C4A0 0%, #C4633F 60%, #6B8AA0 100%); }
+  
   :root {
     --paper: #F5F0E6;
     --ink: #1A1F1A;
@@ -35,7 +47,7 @@
     padding: 60px 8% 80px;
     background: 
       linear-gradient(rgba(26,31,26,0.35), rgba(26,31,26,0.65)),
-      url('https://images.unsplash.com/photo-1580500550469-4e273306fb1a?w=1600') center/cover;
+      url('images/cover.jpg') center/cover;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -231,7 +243,7 @@
   
   .intro-visual {
     aspect-ratio: 3/4;
-    background: url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800') center/cover;
+    background: url('images/intro.jpg') center/cover;
     position: relative;
     box-shadow: 20px 20px 0 var(--moss);
   }
@@ -547,7 +559,7 @@
   
   .spotlight-image {
     aspect-ratio: 1;
-    background: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800') center/cover;
+    background: url('images/restaurant.jpg') center/cover;
     box-shadow: -20px 20px 0 var(--gold);
   }
   
@@ -899,7 +911,7 @@
       </div>
     </div>
     
-    <div class="intro-visual" style="background-image: url('https://images.unsplash.com/photo-1528181304800-259b08848526?w=800')"></div>
+    <div class="intro-visual" style="background-image: url('images/intro.jpg')"></div>
   </div>
 </section>
 
@@ -910,7 +922,7 @@
       <div class="section-label">Itinerary · 行程</div>
       <h2 class="section-title">一日<br><em>The Day</em></h2>
     </div>
-    <p>從花蓮港出發，往南深入縱谷，穿過林業聚落、部落餐桌、糖廠時光、夢幻湖畔、森林咖啡館，最後回到太平洋岸邊。每一站都是一次呼吸的節奏。</p>
+    <p><strong style="font-weight:500;color:var(--moss-dark);">7/24（五）08:00 花蓮港出發．16:45 花蓮港歸來。</strong>往南深入縱谷，環湖散心、走進林業聚落，快速取餐車上享用，糖廠時光、夢幻湖畔、森林咖啡館，最後回到太平洋岸邊。</p>
   </div>
   
   <div class="timeline">
@@ -930,9 +942,9 @@
       <div class="stop-content">
         <h3>鯉魚潭</h3>
         <div class="stop-en">Liyu Lake · 環湖靜心</div>
-        <div class="stop-desc">東台灣最大的湖，四周被山環抱。清晨的湖面平靜如鏡，適合快速環湖拍幾張標記行程開始的照片。</div>
+        <div class="stop-desc">東台灣最大的湖，四周被山環抱。清晨的湖面平靜如鏡，沿著環湖步道散步、租船遊湖，享受山水相親的寧靜時光。</div>
         <span class="stop-tag">FREE</span>
-        <span class="stop-tag">30 MIN</span>
+        <span class="stop-tag">1 HR 15 MIN</span>
       </div>
     </div>
     
@@ -942,38 +954,38 @@
       <div class="stop-content">
         <h3>林田山</h3>
         <div class="stop-en">Lintianshan · 時光聚落</div>
-        <div class="stop-desc">日治時期留下的林業聚落，被稱為「花蓮的九份」，卻沒有九份的喧囂。沿著鐵軌走進木造老屋群，像走進一部黑白電影。</div>
+        <div class="stop-desc">日治時期留下的林業聚落，被稱為「花蓮的九份」，卻沒有九份的喧囂。沿著鐵軌走進木造老屋群，像走進一部黑白電影。時間充裕，可以慢慢逛。</div>
         <span class="stop-tag">週一休館</span>
-        <span class="stop-tag">1 HR</span>
+        <span class="stop-tag">2 HR</span>
       </div>
     </div>
     
     <div class="stop meal">
-      <div class="stop-time">11:00</div>
+      <div class="stop-time">11:30</div>
       <div class="stop-marker"><div class="stop-dot"></div></div>
       <div class="stop-content">
-        <h3>太巴塱紅糯米生活館</h3>
-        <div class="stop-en">Taibalong · 部落餐桌</div>
-        <div class="stop-desc">阿美族部落的家常味。烤雞、烤魚、野菜沙拉、紅糯米飯 —— 一份 150 元的原住民風味餐，滿桌熱氣騰騰。務必提前一天預約。</div>
-        <span class="stop-tag featured">FEATURED · 風味餐</span>
+        <h3>Taibalong 取餐</h3>
+        <div class="stop-en">Taibalong Bento · 快速取餐</div>
+        <div class="stop-desc">從林田山驅車前往太巴塱紅糯米生活館，快速取餐（訂製原住民風味便當），取餐後隨即出發，車上享用，直接銜接下一站光復糖廠。</div>
+        <span class="stop-tag featured">FEATURED · 外帶便當</span>
         <span class="stop-tag">150 / 人</span>
-        <span class="stop-tag">預約制</span>
+        <span class="stop-tag">15 MIN</span>
       </div>
     </div>
     
     <div class="stop">
-      <div class="stop-time">12:45</div>
+      <div class="stop-time">11:45</div>
       <div class="stop-marker"><div class="stop-dot"></div></div>
       <div class="stop-content">
         <h3>光復糖廠</h3>
         <div class="stop-en">Guangfu Sugar Factory · 冰淇淋時光</div>
-        <div class="stop-desc">日治留下的糖業遺產，如今以冰淇淋聞名。紅豆牛奶是老客人的定番，花生口味也不能錯過。錦鯉池畔喝一杯咖啡，慢慢消化。</div>
+        <div class="stop-desc">日治留下的糖業遺產，如今以冰淇淋聞名。紅豆牛奶是老客人的定番，花生口味也不能錯過。錦鯉池畔散步，欣賞日式老建築。</div>
         <span class="stop-tag">1 HR</span>
       </div>
     </div>
     
     <div class="stop">
-      <div class="stop-time">14:00</div>
+      <div class="stop-time">13:00</div>
       <div class="stop-marker"><div class="stop-dot"></div></div>
       <div class="stop-content">
         <h3>雲山水</h3>
@@ -985,7 +997,7 @@
     </div>
     
     <div class="stop">
-      <div class="stop-time">15:00</div>
+      <div class="stop-time">14:00</div>
       <div class="stop-marker"><div class="stop-dot"></div></div>
       <div class="stop-content">
         <h3>理想星巴克</h3>
@@ -996,7 +1008,7 @@
     </div>
     
     <div class="stop">
-      <div class="stop-time">16:00</div>
+      <div class="stop-time">15:00</div>
       <div class="stop-marker"><div class="stop-dot"></div></div>
       <div class="stop-content">
         <h3>太平洋公園</h3>
@@ -1008,12 +1020,12 @@
     </div>
     
     <div class="stop">
-      <div class="stop-time">17:45</div>
+      <div class="stop-time">16:00</div>
       <div class="stop-marker"><div class="stop-dot"></div></div>
       <div class="stop-content">
         <h3>花蓮港</h3>
         <div class="stop-en">Return · 歸來</div>
-        <div class="stop-desc">八小時，剛好。</div>
+        <div class="stop-desc">16:45 返回花蓮港，結束充實的一日行程。</div>
       </div>
     </div>
   </div>
@@ -1027,12 +1039,12 @@
     
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Liyu_Lake_20140102.jpg/1280px-Liyu_Lake_20140102.jpg')">
+        <div class="feature-image" style="background-image: url('images/1_liyu_lake.jpg')">
           <div class="feature-number">01</div>
           <div class="feature-rating">★ 4.4</div>
         </div>
         <div class="feature-body">
-          <div class="feature-time">08:15 — 08:45 · 30 分鐘</div>
+          <div class="feature-time">08:15 — 09:30 · 1 小時 15 分</div>
           <h3 class="feature-title">鯉魚潭</h3>
           <div class="feature-subtitle">Liyu Lake</div>
           <p class="feature-desc">東台灣最大湖泊，環湖車道 4 公里。清晨光線下的湖面倒映著中央山脈，是一天最好的開場白。</p>
@@ -1044,12 +1056,12 @@
       </div>
       
       <div class="feature-card">
-        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Lintianshan_Forestry_Culture_Park_20191014_133027.jpg/1280px-Lintianshan_Forestry_Culture_Park_20191014_133027.jpg')">
+        <div class="feature-image" style="background-image: url('images/2_lintianshan.jpg')">
           <div class="feature-number">02</div>
           <div class="feature-rating">★ 4.4</div>
         </div>
         <div class="feature-body">
-          <div class="feature-time">09:30 — 10:30 · 1 小時</div>
+          <div class="feature-time">09:30 — 11:30 · 2 小時</div>
           <h3 class="feature-title">林田山</h3>
           <div class="feature-subtitle">Lintianshan Forestry Village</div>
           <p class="feature-desc">日治時期的伐木聚落，木造宿舍、鐵軌、中山堂完整保留。像走進 1950 年代的時光膠囊。週一休館。</p>
@@ -1061,12 +1073,12 @@
       </div>
       
       <div class="feature-card">
-        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Hualien_Sugar_Factory_2019.jpg/1280px-Hualien_Sugar_Factory_2019.jpg')">
+        <div class="feature-image" style="background-image: url('images/3_sugar_factory.jpg')">
           <div class="feature-number">03</div>
           <div class="feature-rating">★ 4.1</div>
         </div>
         <div class="feature-body">
-          <div class="feature-time">12:45 — 13:45 · 1 小時</div>
+          <div class="feature-time">11:45 — 12:45 · 1 小時</div>
           <h3 class="feature-title">光復糖廠</h3>
           <div class="feature-subtitle">Guangfu Sugar Factory</div>
           <p class="feature-desc">冰淇淋的朝聖地。紅豆、花生、杜蕉、芋頭 —— 每一支都是童年的味道。錦鯉池、日式老屋，午後散步剛剛好。</p>
@@ -1078,12 +1090,12 @@
       </div>
       
       <div class="feature-card">
-        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/%E9%9B%B2%E5%B1%B1%E6%B0%B4%E5%A4%A2%E5%B9%BB%E6%B9%96.jpg/1280px-%E9%9B%B2%E5%B1%B1%E6%B0%B4%E5%A4%A2%E5%B9%BB%E6%B9%96.jpg')">
+        <div class="feature-image" style="background-image: url('images/4_yunshanshui.jpg')">
           <div class="feature-number">04</div>
           <div class="feature-rating">★ 4.1</div>
         </div>
         <div class="feature-body">
-          <div class="feature-time">14:00 — 14:45 · 45 分鐘</div>
+          <div class="feature-time">13:00 — 13:45 · 45 分鐘</div>
           <h3 class="feature-title">雲山水</h3>
           <div class="feature-subtitle">Yunshanshui Dream Lake</div>
           <p class="feature-desc">被落羽松環繞的私人花園，湖水呈現不真實的湖水藍。門票 120 元含飲料，可以租電動車環園。</p>
@@ -1095,12 +1107,12 @@
       </div>
       
       <div class="feature-card">
-        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Starbucks_Coffee_Hualien_Promiseland_Store_20220117a.jpg/1280px-Starbucks_Coffee_Hualien_Promiseland_Store_20220117a.jpg')">
+        <div class="feature-image" style="background-image: url('images/5_starbucks.jpg')">
           <div class="feature-number">05</div>
           <div class="feature-rating">★ 4.5</div>
         </div>
         <div class="feature-body">
-          <div class="feature-time">15:00 — 15:45 · 45 分鐘</div>
+          <div class="feature-time">14:00 — 14:45 · 45 分鐘</div>
           <h3 class="feature-title">理想星巴克</h3>
           <div class="feature-subtitle">Promiseland Starbucks</div>
           <p class="feature-desc">貨櫃屋改造的森林咖啡館，被稱為全台最夢幻的星巴克。純白外觀襯著綠色森林，怎麼拍都好看。</p>
@@ -1112,12 +1124,12 @@
       </div>
       
       <div class="feature-card">
-        <div class="feature-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/%E5%8D%97%E6%BF%B1%E5%85%AC%E5%9C%92.jpg/1280px-%E5%8D%97%E6%BF%B1%E5%85%AC%E5%9C%92.jpg')">
+        <div class="feature-image" style="background-image: url('images/6_pacific_park.jpg')">
           <div class="feature-number">06</div>
           <div class="feature-rating">★ 4.5</div>
         </div>
         <div class="feature-body">
-          <div class="feature-time">16:00 — 17:00 · 1 小時</div>
+          <div class="feature-time">15:00 — 16:00 · 1 小時</div>
           <h3 class="feature-title">太平洋公園</h3>
           <div class="feature-subtitle">Pacific Park</div>
           <p class="feature-desc">花蓮市海岸線上的長條公園。傍晚的橘色光、太平洋的浪聲、免費 24 小時開放。近大東門夜市。</p>
@@ -1134,12 +1146,12 @@
 <!-- ==================== RESTAURANT SPOTLIGHT ==================== -->
 <section class="spotlight">
   <div class="spotlight-inner">
-    <div class="spotlight-image" style="background-image: url('https://images.unsplash.com/photo-1567337710282-00832b415979?w=800')"></div>
+    <div class="spotlight-image" style="background-image: url('images/restaurant.jpg')"></div>
     
     <div>
       <div class="spotlight-eyebrow">Featured Meal · 主打</div>
       <h2 class="spotlight-title">太巴塱<br>紅糯米生活館</h2>
-      <p class="spotlight-desc">阿美族部落的家常味。沒有菜單，只有依季節上桌的家常菜 —— 烤雞、烤魚、野菜沙拉、酒釀嫩雞、紅糯米飯。滿桌熱氣騰騰，卻只要 150 元。</p>
+      <p class="spotlight-desc">阿美族部落的家常味，這次改為外帶快速取餐。烤雞、烤魚、野菜沙拉、酒釀嫩雞、紅糯米飯 —— 打包成一份訂製便當，滿滿的部落風味，只要 150 元。從林田山開車過來，15 分鐘快速取餐，隨即出發前往光復糖廠，車上享用。</p>
       
       <div class="spotlight-details">
         <div class="detail-item">
@@ -1155,19 +1167,19 @@
           <div class="value">★ 4.5 / 5.0<br><span style="opacity:0.6;font-size:12px">122 則評論</span></div>
         </div>
         <div class="detail-item">
-          <div class="label">Hours · 營業</div>
-          <div class="value">週三至週日<br><span style="opacity:0.6;font-size:12px">週一、週二公休</span></div>
+          <div class="label">Format · 用餐方式</div>
+          <div class="value">外帶便當<br><span style="opacity:0.6;font-size:12px">車上享用</span></div>
         </div>
       </div>
       
       <div class="price-highlight">
         <span class="price-currency">NT$</span>
         <span class="price-number">150</span>
-        <span class="price-label">/ 每人 · 訂製風味餐</span>
+        <span class="price-label">/ 每人 · 訂製便當</span>
       </div>
       
       <p style="font-size:13px; opacity:0.7; margin-top:20px; font-style:italic; font-family:'Cormorant Garamond',serif;">
-        ✱ 務必提前一至兩天電話預約，餐廳依訂位人數準備食材。
+        ✱ 務必提前一至兩天電話預約，餐廳依訂位人數準備便當食材。
       </p>
     </div>
   </div>
@@ -1210,13 +1222,13 @@
     <div class="tips-box">
       <h4>Insider Tips</h4>
       <ul>
-        <li>太巴塱紅糯米務必提前一天預約，餐廳依人數準備食材</li>
+        <li>太巴塱紅糯米務必提前一天預約，並告知需要「外帶便當」</li>
         <li>林田山週一休館，若行程落在週一請調整為其他景點</li>
         <li>雲山水蚊蟲多，短褲短袖記得帶防蚊液</li>
         <li>理想星巴克假日停車位緊張，建議提早 15 分鐘抵達</li>
         <li>光復糖廠冰淇淋收現金，備零錢比較方便</li>
         <li>太平洋公園晚上有大東門夜市可延伸行程</li>
-        <li>八小時行程含車程約 2.5 小時，自駕最方便</li>
+        <li>車上用餐建議準備濕紙巾、垃圾袋，保持車內整潔</li>
       </ul>
     </div>
   </div>
