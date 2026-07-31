@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>真風解算儀 · True Wind Resolver</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+
+<!-- iOS 主畫面 App 支援 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="真風解算儀">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0B2A3D">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="manifest" href="manifest.json">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Spectral+SC:wght@600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-navy:#0B2A3D;
+    --ink-navy-deep:#081D2A;
+    --paper:#E8E1CC;
+    --paper-dim:#c9c2ab;
+    --brass:#B8873B;
+    --brass-light:#D9AE63;
+    --vector-ship:#4C8C77;
+    --vector-apparent:#B5484B;
+    --vector-true:#E8C468;
+    --grid:rgba(232,225,204,0.12);
+    --panel:#0F3348;
+    --panel-line:rgba(216,174,99,0.28);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0; overscroll-behavior-y:contain;}
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    background:
+      radial-gradient(ellipse at 20% -10%, #12405a 0%, transparent 55%),
+      var(--ink-navy);
+    color:var(--paper);
+    font-family:'Spectral',serif;
+    padding:calc(env(safe-area-inset-top) + 14px) calc(env(safe-area-inset-right) + 12px)
+             calc(env(safe-area-inset-bottom) + 96px) calc(env(safe-area-inset-left) + 12px);
+    min-height:100vh;
+    min-height:100dvh;
+    touch-action:pan-y;
+  }
+  .frame{
+    max-width:980px;
+    margin:0 auto;
+    border:1px solid var(--panel-line);
+    border-radius:6px;
+    background:linear-gradient(180deg, var(--panel) 0%, var(--ink-navy-deep) 100%);
+    box-shadow:0 30px 80px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(216,174,99,0.08);
+    overflow:hidden;
+  }
+
+  /* 以獨立 App 開啟（已加入主畫面）時，鋪滿螢幕、去除卡片邊框，更接近原生 App 觀感 */
+  @media (display-mode: standalone){
+    body{ padding:calc(env(safe-area-inset-top) + 6px) 0 calc(env(safe-area-inset-bottom) + 90px); }
+    .frame{ max-width:none; border-left:none; border-right:none; border-radius:0; box-shadow:none; }
+  }
+
+  /* ---- 行動優先：預設單欄，滑桿加大以利觸控 ---- */
+  .body-grid{ display:grid; grid-template-columns:1fr; }
+  @media(min-width:760px){ .body-grid{ grid-template-columns:1.15fr 1fr; } }
+
+  input[type=range]{ touch-action:pan-x; }
+
+  /* ---- Header plate ---- */
+  .plate{
+    padding:26px 32px 20px;
+    border-bottom:1px solid var(--panel-line);
+    background:
+      repeating-linear-gradient(115deg, rgba(216,174,99,0.03) 0px, rgba(216,174,99,0.03) 1px, transparent 1px, transparent 5px);
+    position:relative;
+  }
+  .plate::after{
+    content:"";
+    position:absolute; left:32px; right:32px; bottom:0;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--brass), transparent);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.28em; text-transform:uppercase;
+    color:var(--brass-light); opacity:0.85; margin:0 0 8px;
+  }
+  h1{
+    font-family:'Spectral SC', serif;
+    font-weight:600;
+    font-size:clamp(26px,4vw,36px);
+    margin:0 0 6px;
+    color:var(--paper);
+    letter-spacing:0.02em;
+  }
+  .subtitle{
+    margin:0; font-size:15px; color:var(--paper-dim); font-style:italic;
+  }
+
+  /* ---- Body layout ---- */
+  .diagram-col{
+    padding:26px;
+    border-right:1px solid var(--panel-line);
+    display:flex; flex-direction:column; gap:14px;
+  }
+  @media(max-width:760px){ .diagram-col{border-right:none; border-bottom:1px solid var(--panel-line);} }
+
+  .section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--brass-light);
+    display:flex; align-items:center; gap:8px;
+  }
+  .section-label::before{ content:""; width:14px; height:1px; background:var(--brass); display:inline-block; }
+
+  svg#compass{ width:100%; height:auto; display:block; }
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:14px; font-size:12.5px; font-family:'IBM Plex Mono',monospace;
+    color:var(--paper-dim);
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .swatch{ width:10px; height:10px; border-radius:2px; display:inline-block; }
+
+  /* ---- Controls ---- */
+  .controls-col{ padding:26px; display:flex; flex-direction:column; gap:22px; }
+
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field-head{ display:flex; justify-content:space-between; align-items:baseline; }
+  .field-name{ font-size:14.5px; color:var(--paper); }
+  .field-name b{ color:var(--brass-light); font-weight:600; }
+  .field-val{
+    font-family:'IBM Plex Mono', monospace; font-size:15px; color:var(--vector-true);
+    min-width:64px; text-align:right;
+  }
+  input[type=range]{
+    -webkit-appearance:none; appearance:none; width:100%; height:44px;
+    background:transparent; outline:none; margin:0; padding:0;
+  }
+  input[type=range]::-webkit-slider-runnable-track{
+    height:4px; border-radius:2px;
+    background:linear-gradient(90deg, var(--brass) 0%, var(--brass) var(--fill,50%), rgba(216,174,99,0.2) var(--fill,50%));
+  }
+  input[type=range]::-moz-range-track{
+    height:4px; border-radius:2px;
+    background:linear-gradient(90deg, var(--brass) 0%, var(--brass) var(--fill,50%), rgba(216,174,99,0.2) var(--fill,50%));
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:26px; height:26px; border-radius:50%;
+    background:var(--brass-light); border:2px solid var(--ink-navy-deep);
+    box-shadow:0 0 0 1px var(--brass), 0 2px 6px rgba(0,0,0,0.4); cursor:pointer;
+    margin-top:-11px;
+  }
+  input[type=range]::-moz-range-thumb{
+    width:26px; height:26px; border-radius:50%; border:2px solid var(--ink-navy-deep);
+    background:var(--brass-light);
+    box-shadow:0 0 0 1px var(--brass), 0 2px 6px rgba(0,0,0,0.4); cursor:pointer;
+  }
+  .hint{ font-size:11.5px; color:var(--paper-dim); font-style:italic; }
+
+  /* ---- Readout ---- */
+  .readout{
+    background:var(--ink-navy-deep);
+    border:1px solid var(--panel-line);
+    border-radius:4px;
+    padding:18px 20px;
+    display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  }
+  .readout-item .rlabel{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--brass-light); margin-bottom:6px;
+  }
+  .readout-item .rval{
+    font-family:'IBM Plex Mono',monospace; font-size:26px; color:var(--vector-true);
+    font-weight:600; line-height:1.1;
+  }
+  .readout-item .rval sub{ font-size:13px; color:var(--paper-dim); }
+
+  /* ---- Steps / logbook ---- */
+  .logbook{
+    margin:0 26px 28px;
+    border:1px solid var(--panel-line);
+    border-radius:4px;
+    background:
+      repeating-linear-gradient(180deg, transparent 0px, transparent 27px, rgba(216,174,99,0.06) 28px);
+    padding:20px 22px 22px;
+  }
+  .logbook h2{
+    font-family:'Spectral SC',serif; font-size:16px; font-weight:600;
+    color:var(--brass-light); margin:0 0 14px; letter-spacing:0.03em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logbook h2::after{ content:""; flex:1; height:1px; background:var(--panel-line); }
+  .step{
+    display:grid; grid-template-columns:28px 1fr; gap:10px;
+    margin-bottom:12px; align-items:start;
+  }
+  .step-num{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-navy-deep);
+    background:var(--brass); border-radius:50%; width:22px; height:22px;
+    display:flex; align-items:center; justify-content:center; font-weight:600;
+  }
+  .step-text{ font-size:14px; line-height:1.6; color:var(--paper); }
+  .step-text .lbl{ color:var(--brass-light); }
+  .formula{
+    font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--vector-true);
+    display:block; margin-top:3px; word-break:break-word;
+  }
+  .formula .op{ color:var(--paper-dim); }
+
+  footer{
+    padding:14px 32px 6px; text-align:center;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--paper-dim);
+    letter-spacing:0.08em;
+  }
+
+  /* ---- 底部固定結果列：手機常駐讀數，如儀表板 App ---- */
+  .app-bar{
+    position:fixed; left:0; right:0; bottom:0;
+    display:flex; align-items:center; justify-content:center; gap:0;
+    background:linear-gradient(180deg, rgba(15,51,72,0.92), var(--ink-navy-deep) 40%);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-top:1px solid var(--panel-line);
+    padding:12px calc(env(safe-area-inset-right) + 20px) calc(env(safe-area-inset-bottom) + 12px) calc(env(safe-area-inset-left) + 20px);
+    box-shadow:0 -12px 30px rgba(0,0,0,0.35);
+    z-index:50;
+  }
+  .app-bar-item{ flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; }
+  .app-bar-div{ width:1px; align-self:stretch; background:var(--panel-line); margin:2px 6px; }
+  .ab-label{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--brass-light);
+  }
+  .ab-val{
+    font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:600; color:var(--vector-true);
+  }
+  @media(min-width:760px){ .app-bar{ display:none; } }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <div class="plate">
+    <p class="eyebrow">航海學教具 · Trigonometry of Wind Triangles</p>
+    <h1>真風解算儀</h1>
+    <p class="subtitle">已知航向、航速與相對風（表面風），以向量三角函數解算真風向與真風速</p>
+  </div>
+
+  <div class="body-grid">
+    <div class="diagram-col">
+      <div class="section-label">向量圖 · Vector Plot</div>
+      <svg id="compass" viewBox="0 0 420 420"></svg>
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--vector-ship)"></i>船速向量 V<sub>s</sub></span>
+        <span><i class="swatch" style="background:var(--vector-apparent)"></i>相對風向量 V<sub>a</sub></span>
+        <span><i class="swatch" style="background:var(--vector-true)"></i>真風向量 V<sub>t</sub>（解）</span>
+      </div>
+    </div>
+
+    <div class="controls-col">
+      <div class="section-label">輸入條件 · Given</div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-name">航向 <b>C</b>（真方位）</span>
+          <span class="field-val" id="val-course">000°</span>
+        </div>
+        <input type="range" id="course" min="0" max="359" value="45" step="1">
+        <span class="hint">船艏所指之真方位角，0°=正北，順時針計</span>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-name">航速 <b>V<sub>s</sub></b></span>
+          <span class="field-val" id="val-speed"><span id="speed-num">12</span> kt</span>
+        </div>
+        <input type="range" id="speed" min="0" max="35" value="12" step="0.5">
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-name">相對風向 <b>R<sub>w</sub></b>（自船艏起算）</span>
+          <span class="field-val" id="val-rw">000°</span>
+        </div>
+        <input type="range" id="rw" min="0" max="359" value="220" step="1">
+        <span class="hint">相對方位：0°=船艏正前方，90°=右正橫，180°=正後方，270°=左正橫</span>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-name">相對風速 <b>V<sub>a</sub></b>（表面風速計讀數）</span>
+          <span class="field-val"><span id="va-num">18</span> kt</span>
+        </div>
+        <input type="range" id="va" min="0" max="45" value="18" step="0.5">
+      </div>
+
+      <div class="section-label">解算結果 · Solution</div>
+      <div class="readout">
+        <div class="readout-item">
+          <div class="rlabel">真風向 True Wind Dir.</div>
+          <div class="rval" id="out-dir">—</div>
+        </div>
+        <div class="readout-item">
+          <div class="rlabel">真風速 True Wind Speed</div>
+          <div class="rval" id="out-speed">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logbook">
+    <h2>解算步驟 · Worked Solution</h2>
+    <div id="steps"></div>
+  </div>
+
+  <footer>V(true) = V(relative wind) + V(ship) — 向量加法，分量法求解 · 教學用途</footer>
+</div>
+
+<div class="app-bar" id="appbar">
+  <div class="app-bar-item">
+    <span class="ab-label">真風向</span>
+    <span class="ab-val" id="out-dir-bar">—</span>
+  </div>
+  <div class="app-bar-div"></div>
+  <div class="app-bar-item">
+    <span class="ab-label">真風速</span>
+    <span class="ab-val" id="out-speed-bar">—</span>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const els = {
+  course: $('course'), speed: $('speed'), rw: $('rw'), va: $('va'),
+  valCourse: $('val-course'), valSpeed: $('speed-num'), valRw: $('val-rw'), valVa: $('va-num'),
+  outDir: $('out-dir'), outSpeed: $('out-speed'), steps: $('steps'),
+  outDirBar: $('out-dir-bar'), outSpeedBar: $('out-speed-bar')
+};
+
+function toRad(d){ return d*Math.PI/180; }
+function toDeg(r){ return r*180/Math.PI; }
+function norm360(d){ return ((d%360)+360)%360; }
+function fmt(n,dp=1){ return (Math.round(n*Math.pow(10,dp))/Math.pow(10,dp)).toFixed(dp); }
+function bearingStr(d){ return String(Math.round(norm360(d))).padStart(3,'0')+'\u00B0'; }
+
+function updateSliderFill(el){
+  const min=+el.min, max=+el.max, val=+el.value;
+  el.style.setProperty('--fill', ((val-min)/(max-min)*100)+'%');
+}
+
+function compute(){
+  const C = +els.course.value;
+  const Vs = +els.speed.value;
+  const Rw = +els.rw.value;
+  const Va = +els.va.value;
+
+  // Apparent wind TRUE bearing (direction wind blows FROM, true)
+  const appFromTrue = norm360(C + Rw);
+  // Apparent wind as a MOVEMENT vector (direction air travels TOWARD) = fromBearing + 180
+  const appTowardDeg = norm360(appFromTrue + 180);
+  const Vax = Va * Math.sin(toRad(appTowardDeg));
+  const Vay = Va * Math.cos(toRad(appTowardDeg));
+
+  // Ship movement vector
+  const Vsx = Vs * Math.sin(toRad(C));
+  const Vsy = Vs * Math.cos(toRad(C));
+
+  // True wind (movement vector) = apparent wind vector + ship vector
+  const Vtx = Vax + Vsx;
+  const Vty = Vay + Vsy;
+
+  const Vt = Math.sqrt(Vtx*Vtx + Vty*Vty);
+  let towardDeg = norm360(toDeg(Math.atan2(Vtx, Vty)));
+  const trueFromDeg = norm360(towardDeg + 180);
+
+  return {C,Vs,Rw,Va,appFromTrue,appTowardDeg,Vax,Vay,Vsx,Vsy,Vtx,Vty,Vt,trueFromDeg};
+}
+
+function drawCompass(r){
+  const cx=210, cy=210, R=170;
+  const scale = 170 / Math.max(r.Vs, r.Va, r.Vt, 8);
+
+  function pt(deg, mag){
+    const rad = toRad(deg);
+    return [cx + mag*scale*Math.sin(rad), cy - mag*scale*Math.cos(rad)];
+  }
+
+  function arrow(x1,y1,x2,y2,color,width){
+    const angle = Math.atan2(y2-y1, x2-x1);
+    const ah = 9;
+    const ax1 = x2 - ah*Math.cos(angle-0.4), ay1 = y2 - ah*Math.sin(angle-0.4);
+    const ax2 = x2 - ah*Math.cos(angle+0.4), ay2 = y2 - ah*Math.sin(angle+0.4);
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width}" stroke-linecap="round"/>
+            <polygon points="${x2},${y2} ${ax1},${ay1} ${ax2},${ay2}" fill="${color}"/>`;
+  }
+
+  // ring grid
+  let rings='';
+  for(let rr=1; rr<=3; rr++){
+    rings += `<circle cx="${cx}" cy="${cy}" r="${R*rr/3}" fill="none" stroke="var(--grid)" stroke-width="1"/>`;
+  }
+  let ticks='';
+  for(let d=0; d<360; d+=30){
+    const rad=toRad(d);
+    const ix = cx + (R-6)*Math.sin(rad), iy = cy - (R-6)*Math.cos(rad);
+    ticks += `<line x1="${cx+(R)*Math.sin(rad)}" y1="${cy-(R)*Math.cos(rad)}" x2="${ix}" y2="${iy}" stroke="var(--paper-dim)" stroke-width="1" opacity="0.5"/>`;
+    const lx = cx + (R+18)*Math.sin(rad), ly = cy - (R+18)*Math.cos(rad);
+    const label = d===0?'N':d===90?'E':d===180?'S':d===270?'W':(d+'\u00B0');
+    ticks += `<text x="${lx}" y="${ly+4}" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--paper-dim)" text-anchor="middle">${label}</text>`;
+  }
+
+  // vectors from origin
+  const shipEnd = pt(r.C, r.Vs);
+  const appEnd = pt(r.appTowardDeg, r.Va);
+  const trueEnd = pt(norm360(r.trueFromDeg+180), r.Vt);
+
+  // apparent wind vector drawn tip-to-tail from ship end (classic wind triangle)
+  const appFromShipEnd = [shipEnd[0] + (appEnd[0]-cx), shipEnd[1] + (appEnd[1]-cy)];
+
+  let svg = `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="var(--panel-line)" stroke-width="1.5"/>`;
+  svg += rings + ticks;
+  svg += `<circle cx="${cx}" cy="${cy}" r="3" fill="var(--brass-light)"/>`;
+
+  // ship vector (origin -> shipEnd)
+  svg += arrow(cx,cy, shipEnd[0], shipEnd[1], 'var(--vector-ship)', 3);
+  // apparent wind vector, tail at shipEnd (tip-to-tail addition)
+  svg += arrow(shipEnd[0], shipEnd[1], appFromShipEnd[0], appFromShipEnd[1], 'var(--vector-apparent)', 3);
+  // true wind resultant (origin -> sum)
+  svg += arrow(cx,cy, appFromShipEnd[0], appFromShipEnd[1], 'var(--vector-true)', 3.5);
+
+  svg += `<text x="${(cx+shipEnd[0])/2 + 8}" y="${(cy+shipEnd[1])/2}" font-family="IBM Plex Mono" font-size="11" fill="var(--vector-ship)">Vs</text>`;
+  svg += `<text x="${(shipEnd[0]+appFromShipEnd[0])/2 + 8}" y="${(shipEnd[1]+appFromShipEnd[1])/2}" font-family="IBM Plex Mono" font-size="11" fill="var(--vector-apparent)">Va</text>`;
+  svg += `<text x="${(cx+appFromShipEnd[0])/2 - 8}" y="${(cy+appFromShipEnd[1])/2 - 8}" font-family="IBM Plex Mono" font-size="11" fill="var(--vector-true)" text-anchor="end">Vt</text>`;
+
+  $('compass').innerHTML = svg;
+}
+
+function renderSteps(r){
+  const s = [];
+  s.push(`<div class="step"><div class="step-num">1</div><div class="step-text">
+    將<span class="lbl">相對風向</span>（自船艏起算 ${bearingStr(r.Rw)}）換算為<span class="lbl">真方位</span>：風「來自」方向
+    <span class="formula">θ<sub>來風</sub> = C + R<sub>w</sub> = ${fmt(r.C,0)}° + ${fmt(r.Rw,0)}° = ${bearingStr(r.appFromTrue)}</span>
+  </div></div>`);
+
+  s.push(`<div class="step"><div class="step-num">2</div><div class="step-text">
+    將相對風向量分解為北 / 東分量（吹向方向 = 來風方向 + 180°，即 ${bearingStr(r.appTowardDeg)}）：
+    <span class="formula">V<sub>a,東</sub> = V<sub>a</sub>·sin(${fmt(r.appTowardDeg,0)}°) = ${fmt(r.Va,1)} × ${fmt(Math.sin(toRad(r.appTowardDeg)),3)} = ${fmt(r.Vax,2)} kt</span>
+    <span class="formula">V<sub>a,北</sub> = V<sub>a</sub>·cos(${fmt(r.appTowardDeg,0)}°) = ${fmt(r.Va,1)} × ${fmt(Math.cos(toRad(r.appTowardDeg)),3)} = ${fmt(r.Vay,2)} kt</span>
+  </div></div>`);
+
+  s.push(`<div class="step"><div class="step-num">3</div><div class="step-text">
+    將船速向量（航向 ${bearingStr(r.C)}）分解為北 / 東分量：
+    <span class="formula">V<sub>s,東</sub> = V<sub>s</sub>·sin(${fmt(r.C,0)}°) = ${fmt(r.Vs,1)} × ${fmt(Math.sin(toRad(r.C)),3)} = ${fmt(r.Vsx,2)} kt</span>
+    <span class="formula">V<sub>s,北</sub> = V<sub>s</sub>·cos(${fmt(r.C,0)}°) = ${fmt(r.Vs,1)} × ${fmt(Math.cos(toRad(r.C)),3)} = ${fmt(r.Vsy,2)} kt</span>
+  </div></div>`);
+
+  s.push(`<div class="step"><div class="step-num">4</div><div class="step-text">
+    向量相加（真風 = 相對風 + 船速，分量逐一相加）：
+    <span class="formula">V<sub>t,東</sub> = ${fmt(r.Vax,2)} <span class="op">+</span> ${fmt(r.Vsx,2)} = ${fmt(r.Vtx,2)} kt</span>
+    <span class="formula">V<sub>t,北</sub> = ${fmt(r.Vay,2)} <span class="op">+</span> ${fmt(r.Vsy,2)} = ${fmt(r.Vty,2)} kt</span>
+  </div></div>`);
+
+  s.push(`<div class="step"><div class="step-num">5</div><div class="step-text">
+    以畢氏定理求真風速，以反正切函數求真風吹向：
+    <span class="formula">V<sub>t</sub> = √(V<sub>t,東</sub>² + V<sub>t,北</sub>²) = √(${fmt(r.Vtx,2)}² + ${fmt(r.Vty,2)}²) = ${fmt(r.Vt,2)} kt</span>
+    <span class="formula">θ<sub>吹向</sub> = atan2(V<sub>t,東</sub>, V<sub>t,北</sub>) = ${bearingStr(norm360(r.trueFromDeg+180))}</span>
+  </div></div>`);
+
+  s.push(`<div class="step"><div class="step-num">6</div><div class="step-text">
+    真風向為「吹向」加 180°（風向定義為風的<span class="lbl">來向</span>）：
+    <span class="formula">真風向 = ${bearingStr(norm360(r.trueFromDeg+180))} + 180° = <b style="color:var(--vector-true)">${bearingStr(r.trueFromDeg)}</b>，真風速 = <b style="color:var(--vector-true)">${fmt(r.Vt,1)} kt</b></span>
+  </div></div>`);
+
+  $('steps').innerHTML = s.join('');
+}
+
+function render(){
+  const C=+els.course.value, Vs=+els.speed.value, Rw=+els.rw.value, Va=+els.va.value;
+  els.valCourse.textContent = bearingStr(C);
+  els.valSpeed.textContent = fmt(Vs,1);
+  els.valRw.textContent = bearingStr(Rw);
+  els.valVa.textContent = fmt(Va,1);
+  [els.course, els.speed, els.rw, els.va].forEach(updateSliderFill);
+
+  const r = compute();
+  els.outDir.innerHTML = bearingStr(r.trueFromDeg);
+  els.outSpeed.innerHTML = fmt(r.Vt,1) + ' <sub>kt</sub>';
+  els.outDirBar.textContent = bearingStr(r.trueFromDeg);
+  els.outSpeedBar.textContent = fmt(r.Vt,1) + ' kt';
+
+  drawCompass(r);
+  renderSteps(r);
+}
+
+['course','speed','rw','va'].forEach(id=>{
+  els[id].addEventListener('input', render);
+});
+
+render();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
