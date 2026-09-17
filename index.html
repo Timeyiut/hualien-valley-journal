@@ -67,7 +67,7 @@
   .body-grid{ display:grid; grid-template-columns:1fr; }
   @media(min-width:760px){ .body-grid{ grid-template-columns:1.15fr 1fr; } }
 
-  input[type=range]{ touch-action:pan-x; }
+  input[type=number]{ touch-action:manipulation; }
 
   /* ---- Header plate ---- */
   .plate{
@@ -132,34 +132,40 @@
   .field-head{ display:flex; justify-content:space-between; align-items:baseline; }
   .field-name{ font-size:14.5px; color:var(--paper); }
   .field-name b{ color:var(--brass-light); font-weight:600; }
-  .field-val{
-    font-family:'IBM Plex Mono', monospace; font-size:15px; color:var(--vector-true);
-    min-width:64px; text-align:right;
-  }
-  input[type=range]{
-    -webkit-appearance:none; appearance:none; width:100%; height:44px;
-    background:transparent; outline:none; margin:0; padding:0;
-  }
-  input[type=range]::-webkit-slider-runnable-track{
-    height:4px; border-radius:2px;
-    background:linear-gradient(90deg, var(--brass) 0%, var(--brass) var(--fill,50%), rgba(216,174,99,0.2) var(--fill,50%));
-  }
-  input[type=range]::-moz-range-track{
-    height:4px; border-radius:2px;
-    background:linear-gradient(90deg, var(--brass) 0%, var(--brass) var(--fill,50%), rgba(216,174,99,0.2) var(--fill,50%));
-  }
-  input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance:none; width:26px; height:26px; border-radius:50%;
-    background:var(--brass-light); border:2px solid var(--ink-navy-deep);
-    box-shadow:0 0 0 1px var(--brass), 0 2px 6px rgba(0,0,0,0.4); cursor:pointer;
-    margin-top:-11px;
-  }
-  input[type=range]::-moz-range-thumb{
-    width:26px; height:26px; border-radius:50%; border:2px solid var(--ink-navy-deep);
-    background:var(--brass-light);
-    box-shadow:0 0 0 1px var(--brass), 0 2px 6px rgba(0,0,0,0.4); cursor:pointer;
-  }
   .hint{ font-size:11.5px; color:var(--paper-dim); font-style:italic; }
+
+  /* ---- 人工輸入數字框（取代拖拉滑桿） ---- */
+  .input-group{
+    display:flex; align-items:stretch; gap:0;
+    border:1px solid var(--panel-line); border-radius:4px;
+    background:var(--ink-navy-deep); overflow:hidden;
+  }
+  .input-group input[type=number]{
+    flex:1; min-width:0; border:none; outline:none; background:transparent;
+    font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600;
+    color:var(--vector-true); text-align:center; padding:12px 4px;
+    -moz-appearance:textfield; caret-color:var(--brass-light);
+  }
+  .input-group input[type=number]::-webkit-outer-spin-button,
+  .input-group input[type=number]::-webkit-inner-spin-button{
+    -webkit-appearance:none; margin:0;
+  }
+  .input-group .unit{
+    display:flex; align-items:center;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--paper-dim);
+    padding-right:12px; padding-left:2px;
+  }
+  .input-group button.stepper{
+    width:44px; flex:none; border:none; cursor:pointer;
+    background:var(--panel); color:var(--brass-light);
+    font-family:'IBM Plex Mono', monospace; font-size:19px; font-weight:600;
+    display:flex; align-items:center; justify-content:center;
+    touch-action:manipulation; user-select:none;
+    transition:background 0.12s;
+  }
+  .input-group button.stepper:first-child{ border-right:1px solid var(--panel-line); }
+  .input-group button.stepper:last-child{ border-left:1px solid var(--panel-line); }
+  .input-group button.stepper:active{ background:var(--brass); color:var(--ink-navy-deep); }
 
   /* ---- Readout ---- */
   .readout{
@@ -266,35 +272,51 @@
       <div class="field">
         <div class="field-head">
           <span class="field-name">航向 <b>C</b>（真方位）</span>
-          <span class="field-val" id="val-course">000°</span>
         </div>
-        <input type="range" id="course" min="0" max="359" value="45" step="1">
-        <span class="hint">船艏所指之真方位角，0°=正北，順時針計</span>
+        <div class="input-group">
+          <button type="button" class="stepper" data-target="course" data-step="-1">−</button>
+          <input type="number" inputmode="decimal" id="course" min="0" max="359" step="1" value="45">
+          <span class="unit">°</span>
+          <button type="button" class="stepper" data-target="course" data-step="1">+</button>
+        </div>
+        <span class="hint">船艏所指之真方位角，0°=正北，順時針計，輸入 0–359</span>
       </div>
 
       <div class="field">
         <div class="field-head">
           <span class="field-name">航速 <b>V<sub>s</sub></b></span>
-          <span class="field-val" id="val-speed"><span id="speed-num">12</span> kt</span>
         </div>
-        <input type="range" id="speed" min="0" max="35" value="12" step="0.5">
+        <div class="input-group">
+          <button type="button" class="stepper" data-target="speed" data-step="-0.5">−</button>
+          <input type="number" inputmode="decimal" id="speed" min="0" max="60" step="0.5" value="12">
+          <span class="unit">kt</span>
+          <button type="button" class="stepper" data-target="speed" data-step="0.5">+</button>
+        </div>
       </div>
 
       <div class="field">
         <div class="field-head">
           <span class="field-name">相對風向 <b>R<sub>w</sub></b>（自船艏起算）</span>
-          <span class="field-val" id="val-rw">000°</span>
         </div>
-        <input type="range" id="rw" min="0" max="359" value="220" step="1">
+        <div class="input-group">
+          <button type="button" class="stepper" data-target="rw" data-step="-1">−</button>
+          <input type="number" inputmode="decimal" id="rw" min="0" max="359" step="1" value="220">
+          <span class="unit">°</span>
+          <button type="button" class="stepper" data-target="rw" data-step="1">+</button>
+        </div>
         <span class="hint">相對方位：0°=船艏正前方，90°=右正橫，180°=正後方，270°=左正橫</span>
       </div>
 
       <div class="field">
         <div class="field-head">
           <span class="field-name">相對風速 <b>V<sub>a</sub></b>（表面風速計讀數）</span>
-          <span class="field-val"><span id="va-num">18</span> kt</span>
         </div>
-        <input type="range" id="va" min="0" max="45" value="18" step="0.5">
+        <div class="input-group">
+          <button type="button" class="stepper" data-target="va" data-step="-0.5">−</button>
+          <input type="number" inputmode="decimal" id="va" min="0" max="80" step="0.5" value="18">
+          <span class="unit">kt</span>
+          <button type="button" class="stepper" data-target="va" data-step="0.5">+</button>
+        </div>
       </div>
 
       <div class="section-label">解算結果 · Solution</div>
@@ -335,7 +357,6 @@
 const $ = id => document.getElementById(id);
 const els = {
   course: $('course'), speed: $('speed'), rw: $('rw'), va: $('va'),
-  valCourse: $('val-course'), valSpeed: $('speed-num'), valRw: $('val-rw'), valVa: $('va-num'),
   outDir: $('out-dir'), outSpeed: $('out-speed'), steps: $('steps'),
   outDirBar: $('out-dir-bar'), outSpeedBar: $('out-speed-bar')
 };
@@ -346,16 +367,12 @@ function norm360(d){ return ((d%360)+360)%360; }
 function fmt(n,dp=1){ return (Math.round(n*Math.pow(10,dp))/Math.pow(10,dp)).toFixed(dp); }
 function bearingStr(d){ return String(Math.round(norm360(d))).padStart(3,'0')+'\u00B0'; }
 
-function updateSliderFill(el){
-  const min=+el.min, max=+el.max, val=+el.value;
-  el.style.setProperty('--fill', ((val-min)/(max-min)*100)+'%');
-}
-
 function compute(){
-  const C = +els.course.value;
-  const Vs = +els.speed.value;
-  const Rw = +els.rw.value;
-  const Va = +els.va.value;
+  const C = +els.course.value || 0;
+  const Vs = Math.max(0, +els.speed.value || 0);
+  const Rw = +els.rw.value || 0;
+  const Va = Math.max(0, +els.va.value || 0);
+
 
   // Apparent wind TRUE bearing (direction wind blows FROM, true)
   const appFromTrue = norm360(C + Rw);
@@ -478,13 +495,6 @@ function renderSteps(r){
 }
 
 function render(){
-  const C=+els.course.value, Vs=+els.speed.value, Rw=+els.rw.value, Va=+els.va.value;
-  els.valCourse.textContent = bearingStr(C);
-  els.valSpeed.textContent = fmt(Vs,1);
-  els.valRw.textContent = bearingStr(Rw);
-  els.valVa.textContent = fmt(Va,1);
-  [els.course, els.speed, els.rw, els.va].forEach(updateSliderFill);
-
   const r = compute();
   els.outDir.innerHTML = bearingStr(r.trueFromDeg);
   els.outSpeed.innerHTML = fmt(r.Vt,1) + ' <sub>kt</sub>';
@@ -497,6 +507,28 @@ function render(){
 
 ['course','speed','rw','va'].forEach(id=>{
   els[id].addEventListener('input', render);
+  // 失焦時正規化：方位角換算為 0–359，航速/風速不得為負
+  els[id].addEventListener('change', () => {
+    const el = els[id];
+    let v = +el.value || 0;
+    if (id === 'course' || id === 'rw') v = norm360(v);
+    else v = Math.max(0, v);
+    el.value = (id === 'speed' || id === 'va') ? fmt(v,1) : Math.round(v);
+    render();
+  });
+});
+
+document.querySelectorAll('button.stepper').forEach(btn=>{
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.target;
+    const step = +btn.dataset.step;
+    const el = els[id];
+    let v = (+el.value || 0) + step;
+    if (id === 'course' || id === 'rw') v = norm360(v);
+    else v = Math.max(0, v);
+    el.value = (id === 'speed' || id === 'va') ? fmt(v,1) : Math.round(v);
+    render();
+  });
 });
 
 render();
